@@ -1,0 +1,68 @@
+.autocomplete-container {
+  width: 420px;
+  margin: 40px auto;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.autocomplete-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.autocomplete-dropdown {
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.autocomplete-results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  background-color: white;
+}
+
+.autocomplete-results:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-results:hover {
+  background-color: #f3f4f6;
+}
+
+.autocomplete-results.active {
+  background-color: aliceblue;
+}
+
+.airport-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.airport-code {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.airport-city {
+  font-size: 14px;
+  color: #555;
+}
+
+.airport-name {
+  font-size: 14px;
+  color: #333;
+  text-align: right;
+}
