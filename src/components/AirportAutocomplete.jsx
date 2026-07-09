@@ -5,6 +5,8 @@ import "../styles/AirportAutocomplete.css"
 
 function useDebounce(value, delay) {
   const [debouncevalue, setDebounceValue] = useState(value)
+
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebounceValue(value)
@@ -19,35 +21,17 @@ function useDebounce(value, delay) {
 
 
 
-function AirportAutocomplete() {
+function AirportAutocomplete({lable , option , onchange , value , name , onclick }) {
 
-  const [airportdata, setAirportData] = useState([])
-  const [searchdata, SetSearchData] = useState("")
+ 
   const [activeindex, setActiveindex] = useState(-1)
 
+  const searchdebounce = useDebounce(value, 300)
 
-  const fetchdata = async () => {
+  const searchresult = option.filter((airport) => {
 
-    const response = await fetch("/data/airports.json")
-    const data = await response.json()
-    setAirportData(data)
-  }
+  const searchterm = searchdebounce.trim().toLowerCase()
 
-  console.log(airportdata)
-
-
-
-  useEffect(
-    () => {
-      fetchdata()
-    }, []
-  )
-
-  const searchdebounce = useDebounce(searchdata, 300)
-
-  const searchresult = airportdata.filter((airport) => {
-
-    const searchterm = searchdebounce.trim().toLowerCase()
     return (
       airport.city.toLowerCase().includes(searchterm) ||
       airport.code.toLowerCase().includes(searchterm)
@@ -73,7 +57,7 @@ function AirportAutocomplete() {
       if (activeindex >= 0 && activeindex < searchresult.length) {
 
         const selectedsearchdata = searchresult[activeindex]
-        SetSearchData(`${selectedsearchdata.city}-${selectedsearchdata.code}`)
+        onclick(name, `${selectedsearchdata.city}-${selectedsearchdata.code}`)
         setActiveindex(-1)
       }
     }
@@ -84,23 +68,25 @@ function AirportAutocomplete() {
 
       <div className="autocomplete-container">
         <div>
-          <label htmlFor="from-airport" >From</label>
+          <label htmlFor={name} >{lable}</label>
           <input
-            id="from-airport"
+           name={name}
+            id={name}
             type="text"
             className="autocomplete-input"
-            value={searchdata}
-            onChange={(e) => SetSearchData(e.target.value)}
+            value={value}
+            onChange={onchange}
             placeholder="Search By City or code"
             onKeyDown={handlekeydown}
           />
+
         </div>
 
-        {searchdata.trim() !== "" && searchresult.length > 0 && (
+        {value.trim() !== "" && searchresult.length > 0 && (
           <div className="autocomplete-dropdown">
             {searchresult.map((airport, index) => (
               <div
-                onClick={() => SetSearchData(`${airport.city}-${airport.code}`)}
+                onClick={() => onclick(name, `${airport.city}-${airport.code}`)}
                 key={airport.code}
                 className={`autocomplete-results ${activeindex === index ? "active" : ""}`}
               >
@@ -114,6 +100,8 @@ function AirportAutocomplete() {
           </div>
         )}
       </div>
+
+      
 
     </>
   )

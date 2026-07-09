@@ -1,0 +1,30 @@
+
+[
+  {
+    "id": 1,
+    "from": "Chennai-MAA",
+    "to": "Mumbai-BOM",
+    "airline": "IndiGo",
+    "departure": "10:30 AM",
+    "arrival": "12:35 PM",
+    "price": 5200
+  },
+  {
+    "id": 2,
+    "from": "Chennai-MAA",
+    "to": "Delhi-DEL",
+    "airline": "Air India",
+    "departure": "06:45 AM",
+    "arrival": "09:35 AM",
+    "price": 6400
+  },
+  {
+    "id": 3,
+    "from": "Mumbai-BOM",
+    "to": "Delhi-DEL",
+    "airline": "Vistara",
+    "departure": "02:15 PM",
+    "arrival": "04:20 PM",
+    "price": 4800
+  }
+]
