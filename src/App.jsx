@@ -13,6 +13,7 @@ function App() {
   const [formdata, setFormdata] = useState({ from: "", to: "", })
   const[flightdata , setFlightdata]=useState([])
   const[avilableflight , setAvilableflight]=useState([])
+  const[openlist , setOpenlist]=useState(false)
 
 
   const fetchflightdata = async()=>{
@@ -32,12 +33,13 @@ function App() {
 
 
   const handleselectairport = (name, value) => {
-    setFormdata((prev) => ({
-      ...prev,
+    setFormdata( {
+      ...formdata,
       [name]: value
-    }))
+    })
   }
 
+  console.log(formdata)
 
   const fetchdata = async () => {
     const response = await fetch("/data/airports.json")
@@ -48,7 +50,7 @@ function App() {
   const onsubmit = (e) => {
     e.preventDefault()
     formdata
-  console.log(formdata.from)
+    setOpenlist(true)
     const filterflight = flightdata.filter((flight)=>{
       return( flight.from === formdata.from && flight.to === formdata.to)
     })
@@ -90,7 +92,8 @@ function App() {
      
       </form>
 
-      {avilableflight.length > 0 ?(
+      {openlist && (
+         avilableflight.length > 0 ?(
                <div className="flight-result" >
                 {avilableflight.map((flight)=>(
                   <div key={flight.id} className="flight-card" >
@@ -102,7 +105,10 @@ function App() {
                   </div>
                 ))}
                </div>
-           ):(<p>No flights available</p>)}
+           ):(<p>No flights available</p>) 
+      ) }
+
+     
 </div>
       
          
